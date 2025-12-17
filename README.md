@@ -16,7 +16,7 @@ A modern, responsive web dashboard for tracking investments and returns across m
 
 ## Demo
 
-[View Live Demo](https://yourusername.github.io/investment-dashboard/)
+[View Live Demo](https://magicothiago-lab.github.io/investment-dashboard/)
 
 ## Getting Started
 
@@ -29,7 +29,7 @@ A modern, responsive web dashboard for tracking investments and returns across m
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/investment-dashboard.git
+git clone https://magicothiago-lab.github.io/investment-dashboard.git
 cd investment-dashboard
 ```
 
@@ -54,7 +54,7 @@ Or simply drag and drop the `index.html` file into your browser.
 3. Navigate to "Pages" in the left sidebar
 4. Under "Source", select "main" branch
 5. Click "Save"
-6. Your dashboard will be available at `https://yourusername.github.io/investment-dashboard/`
+6. Your dashboard will be available at `https://magicothiago-lab.github.io/investment-dashboard/`
 
 ## CSV Format
 
