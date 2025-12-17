@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Portfolio Dashboard</title>
+    
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.5/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="./styles.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.5.3/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.js"></script>
+    <script src="https://cdn.datatables.net/2.3.5/js/dataTables.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1 class="header-title">Investment Portfolio</h1>
+                    <p class="header-subtitle">Track your investments and returns across platforms</p>
+                </div>
+                <div class="header-actions">
+                    <input id="fileInput" type="file" accept=".csv,text/csv" class="file-input">
+                    <label for="fileInput" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        Upload CSV
+                    </label>
+                    <button id="demoBtn" type="button" class="btn btn-secondary">Load Demo</button>
+                </div>
+            </div>
+            <div class="status-bar">
+                <span id="status" class="status-badge">Ready to import CSV file</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- KPI Cards -->
+            <section class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">Total Invested</div>
+                        <div id="kpiInvested" class="kpi-value">—</div>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">Total Received</div>
+                        <div id="kpiReceived" class="kpi-value">—</div>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">Portfolio Yield</div>
+                        <div id="kpiYield" class="kpi-value">—</div>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                    </div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">Top Platform</div>
+                        <div id="kpiTop" class="kpi-value kpi-value-small">—</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <div class="chart-card chart-card-full">
+                    <h3 class="chart-title">Investment Distribution</h3>
+                    <div class="chart-container">
+                        <canvas id="chartShareInvested"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3 class="chart-title">Invested by Platform</h3>
+                    <div class="chart-container">
+                        <canvas id="chartInvested"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3 class="chart-title">Returns by Platform</h3>
+                    <div class="chart-container">
+                        <canvas id="chartReceived"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Table -->
+            <section class="table-section">
+                <div class="table-card">
+                    <h3 class="table-title">Platform Details</h3>
+                    <div class="table-wrapper">
+                        <table id="tbl" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Platform</th>
+                                    <th>Invested (€)</th>
+                                    <th>Received (€)</th>
+                                    <th>Yield (%)</th>
+                                    <th>Share (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="table-note">
+                        💡 Tip: Add a "Month" column to your CSV to track historical performance over time
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Investment Portfolio Dashboard • CSV Format: Platform, Invested (€), Received</p>
+        </div>
+    </footer>
+
+    <script src="./app.js"></script>
+</body>
+</html>
