@@ -1,0 +1,119 @@
+{
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Portfolio",
+          "weight": "bolder",
+          "size": "medium",
+          "color": "accent"
+        },
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Total Invested",
+                  "weight": "lighter",
+                  "size": "small",
+                  "wrap": true
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "${totalInvested}",
+                  "weight": "bolder",
+                  "size": "large",
+                  "color": "good"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Total Return",
+                  "weight": "lighter",
+                  "size": "small",
+                  "wrap": true
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "${totalReceived}",
+                  "weight": "bolder",
+                  "size": "large",
+                  "color": "accent"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Profit/Loss",
+                  "weight": "lighter",
+                  "size": "small"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "${profitLoss}",
+                  "weight": "bolder",
+                  "color": "${profitLossColor}"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "ROI",
+                  "weight": "lighter",
+                  "size": "small"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "${roi}",
+                  "weight": "bolder",
+                  "color": "${roiColor}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "TextBlock",
+          "text": "Updated: ${lastUpdate}",
+          "size": "small",
+          "weight": "lighter",
+          "horizontalAlignment": "right",
+          "spacing": "small"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Open Dashboard",
+      "url": "./index.html"
+    }
+  ]
+}

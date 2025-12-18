@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Template Generator</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .info-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+
+        .info-box code {
+            background: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #764ba2;
+            font-family: monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 14px;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            flex: 1;
+            min-width: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button.secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .format-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .format-card {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .format-card h4 {
+            margin: 0 0 10px 0;
+            color: #667eea;
+            font-size: 14px;
+        }
+
+        .format-card .example {
+            font-family: monospace;
+            color: #374151;
+            font-size: 13px;
+        }
+
+        .success {
+            background: #10b981;
+        }
+
+        .checkmark {
+            display: inline-block;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>💼 Investment Dashboard CSV Template</h1>
+        <p class="subtitle">Download templates and learn how to format your investment data</p>
+
+        <div class="info-box">
+            <h3>📋 Required Columns</h3>
+            <p>Your CSV file must contain these columns:</p>
+            <ol>
+                <li><code>Platform</code> - Name of the investment platform (e.g., "Quanloop", "Maclear")</li>
+                <li><code>Invested (€)</code> - Total amount you invested in euros</li>
+                <li><code>Received</code> - Total amount you received back in euros</li>
+                <li><code>Month</code> - (Optional) Month in YYYY-MM format for historical tracking</li>
+            </ol>
+            <p style="margin-top: 10px;"><strong>💡 Pro Tip:</strong> Add the Month column to track your portfolio
+                performance over time!</p>
+        </div>
+
+        <div class="info-box">
+            <h3>✅ Supported Number Formats</h3>
+            <div class="format-examples">
+                <div class="format-card">
+                    <h4>European Format</h4>
+                    <div class="example">€10.371,17</div>
+                    <div class="example">€6.805,08</div>
+                </div>
+                <div class="format-card">
+                    <h4>Without Currency</h4>
+                    <div class="example">10371.17</div>
+                    <div class="example">6805.08</div>
+                </div>
+                <div class="format-card">
+                    <h4>With Commas</h4>
+                    <div class="example">10,371.17</div>
+                    <div class="example">6,805.08</div>
+                </div>
+                <div class="format-card">
+                    <h4>Simple Numbers</h4>
+                    <div class="example">10371</div>
+                    <div class="example">6805</div>
+                </div>
+            </div>
+        </div>
+
+        <h2>📊 Demo Data Preview</h2>
+        <table id="demoTable">
+            <thead>
+                <tr>
+                    <th>Platform</th>
+                    <th>Invested (€)</th>
+                    <th>Received</th>
+                    <th>Month</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Quanloop</td>
+                    <td>€10.371,17</td>
+                    <td>€131,15</td>
+                    <td>2024-12</td>
+                </tr>
+                <tr>
+                    <td>Maclear</td>
+                    <td>€6.805,08</td>
+                    <td>€87,14</td>
+                    <td>2024-12</td>
+                </tr>
+                <tr>
+                    <td>8lends</td>
+                    <td>€6.289,23</td>
+                    <td>€100,69</td>
+                    <td>2024-12</td>
+                </tr>
+                <tr>
+                    <td>Quanloop</td>
+                    <td>€9.500,00</td>
+                    <td>€115,00</td>
+                    <td>2024-11</td>
+                </tr>
+                <tr>
+                    <td>Maclear</td>
+                    <td>€6.500,00</td>
+                    <td>€75,00</td>
+                    <td>2024-11</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="buttons">
+            <button onclick="downloadCSV()">
+                <span class="checkmark">⬇️</span> Download Demo CSV
+            </button>
+            <button onclick="downloadTemplate()" class="secondary">
+                <span class="checkmark">📝</span> Download Empty Template
+            </button>
+        </div>
+
+        <div class="info-box">
+            <h3>🎯 How to Create Your CSV File</h3>
+            <p><strong>Option 1: Use Excel/Google Sheets</strong></p>
+            <ol>
+                <li>Download the empty template above</li>
+                <li>Open it in Excel or Google Sheets</li>
+                <li>Fill in your data (one platform per row)</li>
+                <li>Save as CSV: <code>File → Save As → CSV (Comma delimited)</code></li>
+            </ol>
+            <p style="margin-top: 20px;"><strong>Option 2: Start from Scratch</strong></p>
+            <ol>
+                <li>Create a new spreadsheet</li>
+                <li>Add headers: <code>Platform</code>, <code>Invested (€)</code>, <code>Received</code></li>
+                <li>Enter your data row by row</li>
+                <li>Save as CSV format</li>
+            </ol>
+        </div>
+
+        <div class="info-box">
+            <h3>💡 Pro Tips</h3>
+            <ul>
+                <li>✓ Don't worry about number formatting - the app handles European and US formats</li>
+                <li>✓ You can include or exclude the € symbol - both work</li>
+                <li>✓ Platform names can be anything (letters, numbers, symbols)</li>
+                <li>✓ Empty rows are automatically skipped</li>
+                <li>✓ Save your file with a descriptive name like <code>investments-december-2024.csv</code></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function downloadCSV() {
+            const csvContent = `Platform,Invested (€),Received,Month
+Quanloop,€10.371,17,€131,15,2024-12
+Maclear,€6.805,08,€87,14,2024-12
+8lends,€6.289,23,€100,69,2024-12
+Scramble,€4.141,68,€26,25,2024-12
+Quanloop,€9.500,00,€115,00,2024-11
+Maclear,€6.500,00,€75,00,2024-11
+8lends,€6.000,00,€85,00,2024-11
+Scramble,€3.800,00,€20,00,2024-11
+Quanloop,€8.800,00,€95,00,2024-10
+Maclear,€6.200,00,€65,00,2024-10
+8lends,€5.800,00,€75,00,2024-10`;
+
+            downloadFile(csvContent, 'investment-portfolio-demo-historical.csv');
+        }
+
+        function downloadTemplate() {
+            const csvContent = `Platform,Invested (€),Received,Month
+Example Platform 1,1000.00,50.00,2024-12
+Example Platform 2,2000.00,100.00,2024-12
+Example Platform 3,500.00,25.00,2024-12
+Example Platform 1,950.00,45.00,2024-11
+Example Platform 2,1900.00,90.00,2024-11`;
+
+            downloadFile(csvContent, 'investment-portfolio-template.csv');
+        }
+
+        function downloadFile(content, filename) {
+            const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.visibility = 'hidden';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+
+</html>
