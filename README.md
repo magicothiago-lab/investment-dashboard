@@ -16,7 +16,38 @@ A modern, responsive web dashboard for tracking investments and returns across m
 
 ## Demo
 
-[View Live Demo](https://magicothiago-lab.github.io/investment-dashboard/)
+[View Live Demo](https://github.com/magicothiago-lab/investment-dashboard)
+
+## 📱 Progressive Web App (PWA)
+
+This dashboard is a full Progressive Web App! You can install it on your phone or desktop for an app-like experience:
+
+### iOS (iPhone/iPad)
+1. Open your dashboard URL in Safari
+2. Tap the Share button (square with arrow)
+3. Scroll down and tap "Add to Home Screen"
+4. Tap "Add" in the top right
+5. The app icon will appear on your home screen
+
+### Android
+1. Open your dashboard URL in Chrome
+2. Tap the three dots menu (⋮)
+3. Tap "Add to Home Screen" or "Install App"
+4. Confirm by tapping "Add" or "Install"
+5. The app icon will appear on your home screen
+
+### Desktop (Chrome/Edge)
+1. Open your dashboard URL
+2. Look for the install icon (➕) in the address bar
+3. Click "Install" in the popup
+4. The app will open in its own window
+
+### PWA Features
+- ✅ Works offline (after first load)
+- ✅ Install as standalone app
+- ✅ Full-screen experience
+- ✅ Fast loading with caching
+- ✅ Home screen icon
 
 ## Getting Started
 
@@ -29,7 +60,7 @@ A modern, responsive web dashboard for tracking investments and returns across m
 
 1. Clone this repository:
 ```bash
-git clone https://magicothiago-lab.github.io/investment-dashboard.git
+git clone https://github.com/magicothiago-lab/investment-dashboard.git
 cd investment-dashboard
 ```
 
@@ -54,7 +85,21 @@ Or simply drag and drop the `index.html` file into your browser.
 3. Navigate to "Pages" in the left sidebar
 4. Under "Source", select "main" branch
 5. Click "Save"
-6. Your dashboard will be available at `https://magicothiago-lab.github.io/investment-dashboard/`
+6. Your dashboard will be available at `https://github.com/magicothiago-lab/investment-dashboard/`
+
+### Setting Up PWA Icons
+
+Before deploying, generate your app icons:
+
+1. Open `generate-icons.html` in your browser (included in the project)
+2. Click each download button to get all three icon sizes
+3. Place the downloaded PNG files in your project root:
+   - `icon-180.png` (for iOS)
+   - `icon-192.png` (for Android)
+   - `icon-512.png` (for Android high-res)
+4. Commit and push these files to GitHub
+
+The icons will automatically be used when users install your app!
 
 ## CSV Format
 
@@ -84,10 +129,16 @@ The dashboard supports multiple number formats:
 
 ```
 investment-dashboard/
-├── index.html          # Main HTML structure
-├── styles.css          # All styling and responsive design
-├── app.js              # JavaScript logic and chart rendering
-└── README.md           # Documentation
+├── index.html              # Main HTML structure
+├── styles.css              # All styling and responsive design
+├── app.js                  # JavaScript logic and chart rendering
+├── manifest.json           # PWA manifest file
+├── sw.js                   # Service Worker for offline support
+├── generate-icons.html     # Icon generator utility
+├── icon-180.png           # iOS app icon
+├── icon-192.png           # Android app icon
+├── icon-512.png           # Android high-res icon
+└── README.md              # Documentation
 ```
 
 ## Technologies Used
@@ -163,7 +214,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## Support
 
-If you encounter any issues or have questions, please [open an issue](https://github.com/yourusername/investment-dashboard/issues) on GitHub.
+If you encounter any issues or have questions, please [open an issue](https://github.com/magicothiago-lab/investment-dashboard/issues) on GitHub.
 
 ---
 
