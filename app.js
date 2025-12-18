@@ -302,10 +302,6 @@ document.getElementById('fileInput').addEventListener('change', (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    const fileInput = document.getElementById('fileInput');
-    fileInput.addEventListener('click', () => { fileInput.value = null; });
-
-
     setStatus('Reading CSV file...');
 
     Papa.parse(file, {
