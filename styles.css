@@ -1,4 +1,4 @@
-:root {
+ :root {
     --primary-color: #667eea;
     --primary-dark: #5568d3;
     --secondary-color: #764ba2;
@@ -364,9 +364,12 @@ div.dataTables_wrapper div.dataTables_info {
 
 /* Loading Animation */
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.5;
     }
