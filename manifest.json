@@ -38,5 +38,58 @@
       "type": "image/png",
       "form_factor": "wide"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "View Portfolio",
+      "short_name": "Portfolio",
+      "description": "View your current portfolio status",
+      "url": "./index.html",
+      "icons": [
+        {
+          "src": "./icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Upload Data",
+      "short_name": "Upload",
+      "description": "Upload new investment data",
+      "url": "./index.html?action=upload",
+      "icons": [
+        {
+          "src": "./icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "name": "Portfolio Value",
+      "short_name": "Portfolio",
+      "description": "Shows your total portfolio value",
+      "tag": "portfolio-widget",
+      "template": "portfolio-value",
+      "ms_ac_template": "widget-template.json",
+      "data": "./widget-data.json",
+      "type": "application/json",
+      "screenshots": [
+        {
+          "src": "./widget-screenshot.png",
+          "sizes": "288x288",
+          "label": "Portfolio widget showing total invested value"
+        }
+      ],
+      "icons": [
+        {
+          "src": "./icon-192.png",
+          "sizes": "192x192"
+        }
+      ],
+      "auth": false,
+      "update": 900
+    }
   ]
 }
