@@ -7,16 +7,23 @@ A modern, responsive web dashboard for tracking investments and returns across m
 ## Features
 
 - 📊 **Interactive Charts**: Visualize your investment distribution with bar charts and donut charts
-- 💰 **KPI Cards**: Track total invested, received, yield, and top platform at a glance
-- 📈 **Data Table**: Sortable, searchable table with detailed platform information
+- 📈 **Historical Tracking**: Track portfolio performance over time with monthly snapshots
+- 💰 **KPI Cards**: Track total invested, received, yield, ROI, and profit/loss at a glance
+- 🎯 **Goal Tracking**: Set portfolio targets and track progress with visual indicators
+- 📉 **Performance Metrics**: View ROI, profit/loss, and yield for each platform
+- 📄 **PDF Export**: Generate professional reports with all your portfolio data
+- 🔔 **Push Notifications**: Get notified when you reach 25%, 50%, 75%, and 100% of your goals
+- 📱 **Home Screen Widget**: See your total portfolio value right on your home screen (Android)
+- 📊 **Data Table**: Sortable, searchable table with detailed platform information
 - 📱 **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
 - 🌓 **Dark Mode**: Automatic dark mode support based on system preferences
-- 📁 **CSV Import**: Easy data import via CSV file upload
+- 📁 **CSV Import**: Easy data import via CSV file upload (supports multiple files)
+- ⚡ **Offline Support**: Works without internet after first load
 - 🎨 **Modern UI**: Clean, gradient-based design with smooth animations
 
 ## Demo
 
-[View Live Demo](https://github.com/magicothiago-lab/investment-dashboard)
+[View Live Demo](https://github.com/magicothiago-lab/investment-dashboard/)
 
 ## 📱 Progressive Web App (PWA)
 
@@ -48,6 +55,62 @@ This dashboard is a full Progressive Web App! You can install it on your phone o
 - ✅ Full-screen experience
 - ✅ Fast loading with caching
 - ✅ Home screen icon
+- ✅ Push notifications for goals
+- ✅ Home screen widget (Android)
+
+## New Features Guide
+
+### 📈 Historical Tracking
+Track your portfolio performance month-over-month by adding a `Month` column to your CSV:
+
+```csv
+Platform,Invested (€),Received,Month
+Quanloop,€10.371,17,€131,15,2024-12
+Maclear,€6.805,08,€87,14,2024-12
+Quanloop,€9.500,00,€115,00,2024-11
+Maclear,€6.500,00,€75,00,2024-11
+```
+
+The dashboard will automatically:
+- Show a line chart with your portfolio growth
+- Display month-over-month changes in KPIs
+- Calculate historical performance metrics
+
+### 🎯 Goal Tracking
+1. Enter your target portfolio value (e.g., €50,000)
+2. Set your target date
+3. Click "Save Goal"
+4. Track your progress with a visual progress bar
+5. Get notifications at 25%, 50%, 75%, and 100% milestones!
+
+### 🔔 Push Notifications
+1. Click the bell icon (🔔) in the header
+2. Allow notifications when prompted
+3. Receive alerts when you hit goal milestones
+4. Notifications work even when the app is closed!
+
+### 📄 PDF Export
+Click "Export PDF" to generate a professional report including:
+- Portfolio summary with all KPIs
+- Detailed table of all platforms
+- Profit/loss breakdown
+- ROI calculations
+Perfect for sharing with financial advisors or record keeping!
+
+### 📱 Home Screen Widget (Android)
+After installing the app:
+1. Long-press on your home screen
+2. Tap "Widgets"
+3. Find "Portfolio" widget
+4. Drag to your home screen
+5. See your portfolio value at a glance!
+
+The widget shows:
+- Total Invested
+- Total Received
+- Profit/Loss
+- ROI percentage
+- Last update time
 
 ## Getting Started
 
@@ -106,10 +169,10 @@ The icons will automatically be used when users install your app!
 The dashboard expects a CSV file with the following columns:
 
 ```csv
-Platform,Invested (€),Received
-Quanloop,€10.371,17,€131,15
-Maclear,€6.805,08,€87,14
-8lends,€6.289,23,€100,69
+Platform,Invested (€),Received,Month
+Quanloop,€10.371,17,€131,15,2024-12
+Maclear,€6.805,08,€87,14,2024-12
+8lends,€6.289,23,€100,69,2024-12
 ```
 
 ### Column Details
@@ -117,6 +180,20 @@ Maclear,€6.805,08,€87,14
 - **Platform**: Name of the investment platform (text)
 - **Invested (€)**: Amount invested in euros (can use European format: €1.234,56)
 - **Received**: Amount received/returned in euros
+- **Month** (Optional): Month in YYYY-MM format for historical tracking
+
+### Historical Data Format
+
+To enable historical tracking, include multiple entries for the same platform with different months:
+
+```csv
+Platform,Invested (€),Received,Month
+Quanloop,€10.371,17,€131,15,2024-12
+Quanloop,€9.500,00,€115,00,2024-11
+Quanloop,€8.800,00,€95,00,2024-10
+```
+
+The app will automatically show trends and calculate month-over-month changes!
 
 ### Supported Number Formats
 
@@ -134,6 +211,8 @@ investment-dashboard/
 ├── app.js                  # JavaScript logic and chart rendering
 ├── manifest.json           # PWA manifest file
 ├── sw.js                   # Service Worker for offline support
+├── widget-template.json    # Widget display template
+├── widget-updater.js       # Widget data updater
 ├── generate-icons.html     # Icon generator utility
 ├── icon-180.png           # iOS app icon
 ├── icon-192.png           # Android app icon
@@ -149,6 +228,11 @@ investment-dashboard/
 - **Chart.js**: Beautiful, responsive charts
 - **DataTables**: Advanced table features (sorting, searching, pagination)
 - **PapaParse**: Robust CSV parsing
+- **jsPDF**: PDF report generation
+- **html2canvas**: Canvas rendering for PDF export
+- **Service Workers**: Offline functionality and caching
+- **Notifications API**: Push notifications for goals
+- **Web App Manifest**: PWA installation and widgets
 
 ## Browser Support
 
@@ -184,12 +268,18 @@ Modify chart options in `app.js` in the `renderCharts()` function. See [Chart.js
 
 ## Features Roadmap
 
-- [ ] Historical data tracking (monthly comparison)
-- [ ] Export to PDF/Excel
+- [x] Historical data tracking (monthly comparison)
+- [x] Performance metrics (ROI, P&L)
+- [x] Goal tracking with progress bars
+- [x] Export to PDF
+- [x] Push notifications for goals
+- [x] Home screen widget
 - [ ] Multiple currency support
-- [ ] Performance metrics (ROI, IRR)
-- [ ] Goal tracking
-- [ ] Email reports
+- [ ] Benchmark comparison (S&P 500, etc.)
+- [ ] Category/Asset class grouping
+- [ ] Tax calculator
+- [ ] Rebalancing suggestions
+- [ ] Auto-fetch prices via APIs
 
 ## Contributing
 
