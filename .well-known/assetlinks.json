@@ -3,6 +3,6 @@
   "target": {
     "namespace": "android_app",
     "package_name": "pro.tomiemon.my.twa",
-    "sha256_cert_fingerprints": ["E9539D6A65354A0941D30B034B552A0D24CE6BC082E7825A8B7EED8DEE613BA1"]
+    "sha256_cert_fingerprints": ["E9:53:9D:6A:65:35:4A:09:41:D3:0B:03:4B:55:2A:0D:24:CE:6B:C0:82:E7:82:5A:8B:7E:ED:8D:EE:61:3B:A1"]
   }
 }]
