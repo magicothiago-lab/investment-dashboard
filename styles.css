@@ -1,4 +1,4 @@
- :root {
+:root {
     --primary-color: #667eea;
     --primary-dark: #5568d3;
     --secondary-color: #764ba2;
@@ -122,6 +122,50 @@ body {
     background: var(--border-color);
 }
 
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-icon:hover {
+    background: var(--border-color);
+    transform: scale(1.05);
+}
+
+.btn-pill {
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+}
+
+.btn-pill:hover {
+    background: var(--border-color);
+}
+
+.btn-pill.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
 /* File Input */
 .file-input {
     display: none;
@@ -130,7 +174,9 @@ body {
 /* Status Badge */
 .status-bar {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
 }
 
 .status-badge {
@@ -140,6 +186,107 @@ body {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 2rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* Goals Section */
+.goals-section {
+    margin-bottom: 2rem;
+}
+
+.goal-card {
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+}
+
+.goal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.goal-inputs {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.input-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.goal-progress {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.progress-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.progress-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.progress-bar {
+    height: 12px;
+    background: var(--bg-secondary);
+    border-radius: 1rem;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border-radius: 1rem;
+    transition: width 0.5s ease;
+}
+
+.goal-details {
+    display: flex;
+    justify-content: space-between;
     font-size: 0.875rem;
     color: var(--text-secondary);
 }
@@ -204,6 +351,27 @@ body {
     text-overflow: ellipsis;
 }
 
+.kpi-change {
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    font-weight: 500;
+}
+
+.kpi-change.positive {
+    color: var(--success-color);
+}
+
+.kpi-change.negative {
+    color: var(--danger-color);
+}
+
+.kpi-sublabel {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+    display: block;
+}
+
 /* Charts Section */
 .charts-section {
     display: grid;
@@ -229,11 +397,24 @@ body {
     grid-column: 1 / -1;
 }
 
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
 .chart-title {
     font-size: 1.25rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
     color: var(--text-primary);
+}
+
+.chart-controls {
+    display: flex;
+    gap: 0.5rem;
 }
 
 .chart-container {
@@ -301,6 +482,16 @@ table.dataTable tbody tr:hover {
     background: var(--bg-secondary);
 }
 
+.positive-value {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.negative-value {
+    color: var(--danger-color);
+    font-weight: 600;
+}
+
 div.dataTables_wrapper div.dataTables_filter input {
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
@@ -359,6 +550,14 @@ div.dataTables_wrapper div.dataTables_info {
 
     .chart-container {
         height: 250px;
+    }
+
+    .goal-inputs {
+        flex-direction: column;
+    }
+
+    .input-group {
+        width: 100%;
     }
 }
 
