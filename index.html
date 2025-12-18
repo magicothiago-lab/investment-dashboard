@@ -29,6 +29,8 @@
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.5.3/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.js"></script>
     <script src="https://cdn.datatables.net/2.3.5/js/dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 
 <body>
@@ -41,7 +43,7 @@
                     <p class="header-subtitle">Track your investments and returns across platforms</p>
                 </div>
                 <div class="header-actions">
-                    <input id="fileInput" type="file" accept=".csv,text/csv" class="file-input">
+                    <input id="fileInput" type="file" accept=".csv,text/csv" class="file-input" multiple>
                     <label for="fileInput" class="btn btn-primary">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2">
@@ -52,10 +54,25 @@
                         Upload CSV
                     </label>
                     <button id="demoBtn" type="button" class="btn btn-secondary">Load Demo</button>
+                    <button id="exportBtn" type="button" class="btn btn-secondary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Export PDF
+                    </button>
                 </div>
             </div>
             <div class="status-bar">
                 <span id="status" class="status-badge">Ready to import CSV file</span>
+                <button id="notificationBtn" class="btn-icon" title="Enable notifications">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </header>
@@ -63,6 +80,37 @@
     <!-- Main Content -->
     <main class="main-content">
         <div class="container">
+            <!-- Goals Section -->
+            <section class="goals-section">
+                <div class="goal-card">
+                    <h3 class="goal-title">Portfolio Goals</h3>
+                    <div class="goal-inputs">
+                        <div class="input-group">
+                            <label for="targetValue">Target Value (€)</label>
+                            <input type="number" id="targetValue" placeholder="50000" min="0" step="100">
+                        </div>
+                        <div class="input-group">
+                            <label for="targetDate">Target Date</label>
+                            <input type="date" id="targetDate">
+                        </div>
+                        <button id="saveGoalBtn" class="btn btn-primary btn-small">Save Goal</button>
+                    </div>
+                    <div id="goalProgress" class="goal-progress" style="display: none;">
+                        <div class="progress-info">
+                            <span class="progress-label">Progress to Goal</span>
+                            <span class="progress-value" id="goalPercentage">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="goalProgressBar"></div>
+                        </div>
+                        <div class="goal-details">
+                            <span id="goalRemaining">€0 remaining</span>
+                            <span id="goalDaysLeft">0 days left</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- KPI Cards -->
             <section class="kpi-grid">
                 <div class="kpi-card">
@@ -76,6 +124,7 @@
                     <div class="kpi-content">
                         <div class="kpi-label">Total Invested</div>
                         <div id="kpiInvested" class="kpi-value">—</div>
+                        <div id="kpiInvestedChange" class="kpi-change"></div>
                     </div>
                 </div>
 
@@ -89,6 +138,7 @@
                     <div class="kpi-content">
                         <div class="kpi-label">Total Received</div>
                         <div id="kpiReceived" class="kpi-value">—</div>
+                        <div id="kpiReceivedChange" class="kpi-change"></div>
                     </div>
                 </div>
 
@@ -103,6 +153,7 @@
                     <div class="kpi-content">
                         <div class="kpi-label">Portfolio Yield</div>
                         <div id="kpiYield" class="kpi-value">—</div>
+                        <div id="kpiYieldChange" class="kpi-change"></div>
                     </div>
                 </div>
 
@@ -110,15 +161,30 @@
                     <div class="kpi-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2">
-                            <polygon
-                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                            </polygon>
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
                     </div>
                     <div class="kpi-content">
-                        <div class="kpi-label">Top Platform</div>
-                        <div id="kpiTop" class="kpi-value kpi-value-small">—</div>
+                        <div class="kpi-label">Total Profit/Loss</div>
+                        <div id="kpiProfitLoss" class="kpi-value">—</div>
+                        <div id="kpiROI" class="kpi-sublabel">—</div>
                     </div>
+                </div>
+            </section>
+
+            <!-- Historical Trend Chart -->
+            <section class="chart-card chart-card-full" id="historicalSection" style="display: none;">
+                <div class="chart-header">
+                    <h3 class="chart-title">Portfolio Performance Over Time</h3>
+                    <div class="chart-controls">
+                        <button class="btn-pill active" data-period="all">All</button>
+                        <button class="btn-pill" data-period="6m">6M</button>
+                        <button class="btn-pill" data-period="3m">3M</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="chartHistorical"></canvas>
                 </div>
             </section>
 
@@ -146,10 +212,10 @@
                 </div>
             </section>
 
-            <!-- Data Table -->
+            <!-- Performance Metrics Table -->
             <section class="table-section">
                 <div class="table-card">
-                    <h3 class="table-title">Platform Details</h3>
+                    <h3 class="table-title">Platform Performance Metrics</h3>
                     <div class="table-wrapper">
                         <table id="tbl" class="display" style="width:100%">
                             <thead>
@@ -157,6 +223,8 @@
                                     <th>Platform</th>
                                     <th>Invested (€)</th>
                                     <th>Received (€)</th>
+                                    <th>P&L (€)</th>
+                                    <th>ROI (%)</th>
                                     <th>Yield (%)</th>
                                     <th>Share (%)</th>
                                 </tr>
@@ -165,7 +233,7 @@
                         </table>
                     </div>
                     <div class="table-note">
-                        💡 Tip: Add a "Month" column to your CSV to track historical performance over time
+                        💡 Tip: Add a "Month" column (YYYY-MM format) to your CSV to enable historical tracking
                     </div>
                 </div>
             </section>
@@ -175,11 +243,21 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>Investment Portfolio Dashboard • CSV Format: Platform, Invested (€), Received</p>
+            <p>Investment Portfolio Dashboard • CSV Format: Platform, Invested (€), Received [, Month]</p>
         </div>
     </footer>
 
     <script src="./app.js"></script>
+    <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed'));
+            });
+        }
+    </script>
 </body>
 
 </html>
